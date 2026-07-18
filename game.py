@@ -32,7 +32,14 @@ def draw():
 def update():
     global items
     if len(items) == 0:
-        items = 
+        items = make_items(current_level)
+
+def make_items(extra_items):
+    items_to_create = get_option(extra_items)
+    new_items = create_items(items_to_create)
+    layout_items(new_items)
+    animate_items(new_items)
+    return new_items
 
 def get_option(extra_items):
     items_to_create = ['paper']
@@ -62,7 +69,7 @@ def animate_items(items_to_animate):
     for item in items_to_animate:
         duration = START_SPEED - current_level
         item.anchor = ('center','bottom')
-        animation = animate(item,duration=duration,on_finished = game_over(),y = HEIGHT)
+        animation = animate(item,duration=duration,on_finished = game_over,y = HEIGHT)
         animations.append(animation)
 
 def game_over ():
